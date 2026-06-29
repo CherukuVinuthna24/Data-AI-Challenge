@@ -1,0 +1,41 @@
+{
+    "job_title": "Senior AI Engineer",
+
+    "required_skills": [
+        "python",
+        "machine learning",
+        "deep learning",
+        "nlp",
+        "llm",
+        "fine-tuning llms",
+        "lora",
+        "pytorch"
+    ],
+
+    "preferred_skills": [
+        "rag",
+        "retrieval",
+        "ranking",
+        "embedding",
+        "embeddings",
+        "milvus",
+        "pinecone",
+        "faiss",
+        "qdrant",
+        "weaviate"
+    ],
+
+    "preferred_titles": [
+        "senior ai engineer",
+        "ai engineer",
+        "machine learning engineer",
+        "ml engineer",
+        "applied scientist",
+        "research engineer",
+        "data scientist"
+    ],
+
+    "experience_min": 4,
+
+    "experience_best": [5, 9]
+}
