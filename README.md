@@ -8,6 +8,26 @@ The system processes over **100,000 candidate profiles** and ranks the **Top 100
 
 Unlike simple keyword matching, the engine combines multiple signals including skills, experience, job titles, career progression, recruiter activity, company background, and behavioral signals.
 
+---
+
+## Key Highlights
+
+- Parses any Job Description automatically
+- Dynamically configures the ranking engine — no hardcoded job logic
+- Processes 100,000 candidate profiles
+- Generates an explainable Top-100 shortlist
+- Fully offline and deterministic — no API dependency
+- Runtime: ~16 seconds on CPU
+- Validation-ready `submission.csv`
+
+---
+
+## Challenge Objective
+
+Develop a Proof of Concept that goes beyond filtering by intelligently ranking candidates through deep job understanding, contextual relevance, recruiter signals, and explainable scoring.
+
+---
+
 ## How to Run
 
 ```bash
@@ -22,6 +42,8 @@ python validate_submission.py submission.csv
 ```
 
 Paste any job description into `job_description.txt`. The system automatically extracts required skills, preferred skills, experience range, and seniority — no manual configuration needed.
+
+---
 
 ## Full Pipeline
 
@@ -57,6 +79,7 @@ Score      Score         Score      Signals
   submission.csv
 ```
 
+---
 
 ## Architecture
 
@@ -126,6 +149,24 @@ CAND_0039754     2     804.67    Matched 5/8 required skills (python, machine
                                  learning, deep learning, lora, pytorch); matched
                                  4 preferred skills (rag, retrieval, embeddings);
                                  6.8 years experience; currently ML Engineer
+```
+
+**Sample reasoning, broken down:**
+
+```text
+Matched 5/8 required skills:
+Python, Machine Learning, NLP, LLM, PyTorch
+
+Matched 3 preferred skills:
+RAG, Embeddings, FAISS
+
+Experience: 6.8 years
+
+Current Title: Senior AI Engineer
+
+Current Company: Product-based
+
+Final Score: 845.06
 ```
 
 ---
@@ -203,11 +244,39 @@ redrob_hackathon/
 
 ---
 
+## Why Rule-Based AI?
+
+The ranking engine intentionally uses deterministic scoring instead of LLM-based scoring because:
+
+- **Fully explainable** — every point awarded has a direct, traceable data source
+- **No hallucinations** — reasoning only reflects what was actually found in candidate data
+- **Reproducible results** — same input always produces the same output
+- **Faster execution** — no model loading or inference latency
+- **No GPU requirement** — runs entirely on a standard CPU
+- **Suitable for large-scale ranking** — scales cleanly to 100K+ candidates without added cost
+
+---
+
+## Evaluation
+
+- **Processes:** 100,000 candidates
+- **Output:** Top 100 ranked candidates
+- **Runtime:** ~16 seconds
+- **Memory Efficient:** Streams JSONL line-by-line, no full dataset load into memory
+- **Explainability:** Human-readable reasoning generated for every candidate
+- **Validation:** Passes `validate_submission.py`
+
+---
+
 ## Technologies Used
 
-- Python
+- Python 3
 - Pandas
 - tqdm
+- JSON / JSONL
+- Rule-based NLP
+- Config-driven Architecture
+- Explainable AI
 
 ---
 
@@ -220,13 +289,32 @@ redrob_hackathon/
 
 ---
 
-## Future Improvements
+## Current Limitations
 
+- Semantic embeddings are not yet used for full vector similarity ranking
+- No multilingual Job Description support
+- Alias mapping for semantic matching is manually maintained
+- Ranking is deterministic rather than embedding-based
+
+---
+
+## Roadmap
+
+**Version 6 (Current)**
+- Dynamic JD Parsing
+- Explainable Ranking
+- Config-driven scoring
+- Semantic alias matching on career history
+
+**Version 7 (Planned)**
 - Sentence Transformer embeddings
-- Semantic candidate matching
 - Cosine similarity scoring
-- Hybrid AI + Rule-based ranking
+- Hybrid semantic + rule-based ranking
+
+**Version 8 (Future)**
 - LLM-powered candidate explanations
+- Recruiter dashboard
+- Interactive search and filtering
 
 ---
 
